@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { AuthProvider, useAuth } from './authContext';
+import LandingPage from './components/LandingPage';
+import Login from './components/auth-components/Login';
+import Gallery from './components/Gallery';
+import ImageUpload from './components/ImageUpload';
+// import NavigationBar from './components/NavigationBar';
 
-function App() {
+const App = () => {
+  //const { isAuthenticated } = useAuth();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      {/* {isAuthenticated && <NavigationBar />} */}
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/upload" element={<ImageUpload />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
-export default App;
+const WrappedApp = () => (
+   <AuthProvider>
+    <App />
+   </AuthProvider>
+);
+
+export default WrappedApp;

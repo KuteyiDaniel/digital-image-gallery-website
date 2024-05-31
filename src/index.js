@@ -1,13 +1,18 @@
+// index.js
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import WrappedApp from './App';
 import './index.css';
-import App from './App';
+import './firebase';  // Make sure Firebase is imported here
+import { AuthProvider } from './authContext';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <AuthProvider>
+      <WrappedApp />
+    </AuthProvider>
   </React.StrictMode>
 );
 

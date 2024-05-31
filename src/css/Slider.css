@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500&family=Raleway:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap');
+
+.slider-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    /*height: 300px; /* Adjust height as needed */
+    text-align: center;
+    margin: 30px 0px;
+    font-style: 'Raleway', 'sans-serif' ;
+    letter-spacing: 1px;
+    line-height: 35px;
+    /*background-color: #f0f0f0; /* Optional: Add a background color for better visibility */
+  }
+  
+  .slider-slide h3 {
+    margin: 0;
+  }
+  
+  .slider-slide h2{
+    background: -webkit-linear-gradient(#8a6ecf, #c577ad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: 'Raleway', 'sans-serif' ;
+  }
