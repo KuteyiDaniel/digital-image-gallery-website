@@ -1,6 +1,8 @@
 // firebase.js
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import {useEffect} from "react";
+import {getDatabase, ref, child, get } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDwDrij4_HC42SCoWBh9TVJJ31bm__F9Ts",
@@ -9,10 +11,37 @@ const firebaseConfig = {
   storageBucket: "image-gallery-9bcf9.appspot.com",
   messagingSenderId: "858485264592",
   appId: "1:858485264592:web:6fbe7536a8adc91c814ed5",
-  measurementId: "G-PHF40BWTHF"
+  measurementId: "G-PHF40BWTHF",
+  databaseURL: "https://image-gallery-9bcf9-default-rtdb.firebaseio.com/"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const database = getDatabase(app);
+
+console.log({ database })
+
+
+
+const signInUser = async (email, password) => {
+  let userCredential = await signInWithEmailAndPassword(auth, email, password);
+  return userCredential.user;
+}
+const createUser = async (email, password) => {
+  let userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+  return userCredential.user;
+}
+const getUsers = async () => {
+  const dbRef = ref(getDatabase(app));
+
+  let snapshot = await get(child(dbRef, `/users`));
+
+  if (snapshot.exists()) {
+    return snapshot.val();
+  }
+  return []
+}
+
 
 export {app, auth };

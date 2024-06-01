@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Navigate, Link } from 'react-router-dom'
 import { signInWithEmailAndPassword,/* doSignInWithGoogle*/ } from 'firebase/auth'
-import { useAuth } from '../../authContext'
+import { useAuth } from '../../authContext';
+
 
 const Login = () => {
+
+
     const { userLoggedIn } = useAuth()
 
     const [email, setEmail] = useState('')
@@ -20,7 +23,7 @@ const Login = () => {
         }
     }
 
-  
+
 
     return (
         <div>
@@ -80,7 +83,7 @@ const Login = () => {
                     <div className='flex flex-row text-center w-full'>
                         <div className='border-b-2 mb-2.5 mr-2 w-full'></div><div className='text-sm font-bold w-fit'>OR</div><div className='border-b-2 mb-2.5 ml-2 w-full'></div>
                     </div>
-                  
+
                 </div>
             </main>
         </div>
