@@ -5,12 +5,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 
+.navigation-bar{
+    padding: 20px 0px;
+}
+
 
 .navigation-content{
     display: flex;
     width: calc(100% - 5rem);
     margin: 0 auto;
-    padding: 20px;
+    /*padding: 20px;*/
     align-items: center;
     justify-content: space-between;
     /*background: grey;*/
