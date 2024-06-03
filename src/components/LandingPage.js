@@ -11,7 +11,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate('/login'); // Navigate to the login page
+    navigate('/register'); // Navigate to the login page
   };
 
   return (

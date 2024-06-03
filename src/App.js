@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider, useAuth } from './authContext';
 import LandingPage from './components/LandingPage';
 import Login from './components/auth-components/Login';
+import Register from './components/auth-components/Register';
 import Gallery from './components/Gallery';
 import ImageUpload from './components/ImageUpload';
 // import NavigationBar from './components/NavigationBar';
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/upload" element={<ImageUpload />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );

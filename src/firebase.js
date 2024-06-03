@@ -1,8 +1,6 @@
-// firebase.js
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import {useEffect} from "react";
-import {getDatabase, ref, child, get } from "firebase/database";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import { getDatabase, ref, child, get } from 'firebase/database';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDwDrij4_HC42SCoWBh9TVJJ31bm__F9Ts",
@@ -19,29 +17,27 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-console.log({ database })
-
-
-
-const signInUser = async (email, password) => {
+export const signInUser = async (email, password) => {
   let userCredential = await signInWithEmailAndPassword(auth, email, password);
   return userCredential.user;
 }
-const createUser = async (email, password) => {
-  let userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
+export const createUser = async (email, password) => {
+  let userCredential = await createUserWithEmailAndPassword(auth, email, password);
   return userCredential.user;
 }
+
+export const signOutUser = async () => {
+  await signOut(auth);
+}
+
 const getUsers = async () => {
   const dbRef = ref(getDatabase(app));
-
   let snapshot = await get(child(dbRef, `/users`));
-
   if (snapshot.exists()) {
     return snapshot.val();
   }
   return []
 }
 
-
-export {app, auth };
+export { app, auth, database };

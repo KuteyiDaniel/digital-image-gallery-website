@@ -1,18 +1,27 @@
-// src/components/NavBar.js
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
+import { useAuth } from '../authContext';
 import '../css/NavigationBar.css'
 
 const NavigationBar = () => {
+  const { signOutUser } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOutUser();
+    navigate('/login');
+  };
+
   return (
-    <nav className='navigation-bar'>
-      <ul className='naviagtion-content'>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/contact">Contact</Link></li>
-        <li><Link to="/login">Login</Link></li>
-      </ul>
-    </nav>
+    <div className='navigation-bar'>
+      <nav className='navigation-content'>
+        <NavLink to="/" className='company-logo'>
+          <header>Pixel</header>
+        </NavLink>
+        <div><button className='sign-out-button' onClick={handleSignOut}>Sign Out</button></div>
+      </nav>
+    </div>
   );
 };
 
