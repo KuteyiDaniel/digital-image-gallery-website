@@ -3,6 +3,8 @@ import NavigationBar from '../components/NavigationBar';
 import { useDropzone } from 'react-dropzone';
 import '../css/Gallery.css';
 //import coverImage from '../images/tate-2684212_1920.jpg';
+import { FaPlus } from "react-icons/fa";
+
 
 const Gallery = () => {
   const [images, setImages] = useState([]);
@@ -29,7 +31,7 @@ const Gallery = () => {
           {isDragActive ? (
             <p>Drop the files here ...</p>
           ) : (
-            <button>Upload an Image</button>
+            <button>Upload an Image <FaPlus className='add-btn'/> </button>
           )}
         </div>
         <div className="image-gallery">

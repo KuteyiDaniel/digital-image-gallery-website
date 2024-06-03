@@ -23,10 +23,25 @@
     padding: 20px 0px;
 }
 
+@keyframes Slide {
+    0%{
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+  
+    100%{
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
 .image-gallery .uploaded-image{
     width: 24.5%;
+    min-height: 300px;
+    margin: 0px 0px 15px 0px;
     border-radius: 5px;
     object-fit: cover;
+    animation: Slide ease-in-out 1s;
 }
 .upload-area {
     border: 2px dashed #8a6ecf;
@@ -50,10 +65,16 @@
     border-radius: 4px;
     font-family: 'Manrope', sans-serif;
     font-size: 14px;
+    display: inline-flex;
+    align-items: center;
   }
   
   .upload-area button:hover {
-    background-color: rgba(138, 110, 207, 0.7);
+    background-color: rgba(138, 110, 207, 0.85);
+  }
+
+  .upload-area .add-btn{
+    margin: 0px 0px 0px 5px;
   }
   
 
