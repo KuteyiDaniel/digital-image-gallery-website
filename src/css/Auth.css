@@ -11,6 +11,7 @@
   align-items: center; display: flex;
   background-color: #4158D0;
   background-image: linear-gradient(43deg, rgb(98, 83, 126) 0%,#8a6ecf  46%,  #c577ad 100% );
+  padding: 15px;
   
 }
 

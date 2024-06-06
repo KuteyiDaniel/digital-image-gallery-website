@@ -19,7 +19,7 @@
     margin: 0;
   }
   
-  .slider-slide h2{
+  .slider-slide h3{
     background: -webkit-linear-gradient(#8a6ecf, #c577ad);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

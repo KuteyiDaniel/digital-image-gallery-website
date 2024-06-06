@@ -20,15 +20,15 @@ const TextSlider = () => {
     return (
         <Slider {...settings}>
             <div className="slider-slide">
-                <h2>Upload Images</h2>
+                <h3>Upload Images</h3>
                 <p>Easily upload your images with our user-friendly interface.</p>
             </div>
             <div className="slider-slide">
-                <h2>Manage Your Gallery</h2>
+                <h3>Manage Your Gallery</h3>
                 <p>Organize and manage your image collection in one place.</p>
             </div>
             <div className="slider-slide">
-                <h2>Share with Friends</h2>
+                <h3>Share with Friends</h3>
                 <p>Share your favorite images on social media with a click.</p>
             </div>
         </Slider>

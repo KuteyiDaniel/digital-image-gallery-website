@@ -12,6 +12,24 @@ body{
     box-sizing: border-box;
 }
 
+
+@media screen and (min-width: 481px){
+  .container-content .welcome-text{
+    font-size: 4.5vw;
+   
+}
+}
+
+
+@media screen and (min-width: 200px) and (max-width: 480px){
+  .container-content .welcome-text{
+    font-size: 7.5vw;
+   
+}
+
+}
+
+
 .main-container{
     width: 100%;
     min-height: 100vh;
@@ -49,10 +67,7 @@ body{
     text-align: center;
 }
 
-.container-content .welcome-text{
-    font-size: 4.5vw;
-   
-}
+
 
 .container-content .company-name{
     background: -webkit-linear-gradient(#8a6ecf, #c577ad);
