@@ -2,17 +2,16 @@ import React, { useState, useRef, useEffect } from 'react';
 import NavigationBar from '../components/NavigationBar';
 import '../css/Gallery.css';
 import { FaPlus } from "react-icons/fa";
-import { FaArrowRotateLeft } from "react-icons/fa6";
-import { IoMdAdd, IoMdRemoveCircleOutline  } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
-
-
+import { IoMdRemoveCircleOutline, IoMdAdd } from "react-icons/io";
+import { FaArrowRotateLeft } from "react-icons/fa6";
 
 const Gallery = () => {
   const [images, setImages] = useState([]);
   const [captions, setCaptions] = useState([]);
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
   const [rotations, setRotations] = useState({});
+  const [visibility, setVisibility] = useState({});
   const dropAreaRef = useRef(null);
   const fileInputRef = useRef(null);
 
@@ -69,6 +68,11 @@ const Gallery = () => {
       delete newRotations[index];
       return newRotations;
     });
+    setVisibility((prevVisibility) => {
+      const newVisibility = { ...prevVisibility };
+      delete newVisibility[index];
+      return newVisibility;
+    });
   };
 
   const openLightbox = (index) => {
@@ -85,6 +89,13 @@ const Gallery = () => {
 
   const showPreviousImage = () => {
     setSelectedImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+  };
+
+  const displayEditingOption = (index) => {
+    setVisibility((prevVisibility) => ({
+      ...prevVisibility,
+      [index]: !prevVisibility[index]
+    }));
   };
 
   useEffect(() => {
@@ -150,11 +161,15 @@ const Gallery = () => {
                 }}
                 onClick={() => openLightbox(index)}
               />
-              <div className="controls">
-                <button onClick={() => rotateImage(index)}>Rotate <FaArrowRotateLeft/> </button>
-                <button onClick={() => applySaturate(index, 200)}>Add Filter <IoMdAdd/> </button>
-                <button onClick={() => applySaturate(index, 100)}>Remove Filter < IoMdRemoveCircleOutline /> </button>
-                <button className='delete' onClick={() => deleteImage(index)}>Delete <MdDelete/> </button>
+              <div className="caption">{captions[index]}</div>
+              <button onClick={() => displayEditingOption(index)} className='edit-header'>
+                {visibility[index] ? 'Stop editing' : 'Edit image'}
+              </button>
+              <div className="controls" style={{ display: visibility[index] ? 'flex' : 'none' }}>
+                <button onClick={() => rotateImage(index)}> Rotate <FaArrowRotateLeft /> </button>
+                <button onClick={() => applySaturate(index, 400)}> Add Filter <IoMdAdd /></button>
+                <button onClick={() => applySaturate(index, 100)}> Remove Filter <IoMdRemoveCircleOutline /> </button>
+                <button className='delete' onClick={() => deleteImage(index)}> Delete <MdDelete /> </button>
               </div>
             </div>
           ))}
