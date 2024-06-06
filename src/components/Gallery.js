@@ -2,6 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import NavigationBar from '../components/NavigationBar';
 import '../css/Gallery.css';
 import { FaPlus } from "react-icons/fa";
+import { FaArrowRotateLeft } from "react-icons/fa6";
+import { IoMdAdd, IoMdRemoveCircleOutline  } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
+
+
 
 const Gallery = () => {
   const [images, setImages] = useState([]);
@@ -51,9 +56,19 @@ const Gallery = () => {
     });
   };
 
-  const applyGrayscale = (index, apply) => {
+  const applySaturate = (index, level) => {
     const image = document.querySelector(`#image-${index} img`);
-    image.style.filter = apply ? 'grayscale(100%)' : 'none';
+    image.style.filter = `saturate(${level}%)`;
+  };
+
+  const deleteImage = (index) => {
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    setCaptions((prevCaptions) => prevCaptions.filter((_, i) => i !== index));
+    setRotations((prevRotations) => {
+      const newRotations = { ...prevRotations };
+      delete newRotations[index];
+      return newRotations;
+    });
   };
 
   const openLightbox = (index) => {
@@ -136,9 +151,10 @@ const Gallery = () => {
                 onClick={() => openLightbox(index)}
               />
               <div className="controls">
-                <button onClick={() => rotateImage(index)}>Rotate Image</button>
-                <button onClick={() => applyGrayscale(index, true)}>Add Filter</button>
-                <button onClick={() => applyGrayscale(index, false)}>Remove Filter</button>
+                <button onClick={() => rotateImage(index)}>Rotate <FaArrowRotateLeft/> </button>
+                <button onClick={() => applySaturate(index, 200)}>Add Filter <IoMdAdd/> </button>
+                <button onClick={() => applySaturate(index, 100)}>Remove Filter < IoMdRemoveCircleOutline /> </button>
+                <button className='delete' onClick={() => deleteImage(index)}>Delete <MdDelete/> </button>
               </div>
             </div>
           ))}
