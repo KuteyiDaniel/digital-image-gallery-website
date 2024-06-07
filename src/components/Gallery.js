@@ -12,14 +12,16 @@ const Gallery = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
   const [rotations, setRotations] = useState({});
   const [visibility, setVisibility] = useState({});
+  const [captionModal, setCaptionModal] = useState(false);
+  const [newCaption, setNewCaption] = useState('');
+  const [captionIndex, setCaptionIndex] = useState(null);
   const dropAreaRef = useRef(null);
   const fileInputRef = useRef(null);
 
   const handleFiles = (files) => {
     const newImages = Array.from(files).map((file) => URL.createObjectURL(file));
-    const newCaptions = Array.from(files).map((file) => prompt("Enter a caption for the image:"));
     setImages((prevImages) => [...prevImages, ...newImages]);
-    setCaptions((prevCaptions) => [...prevCaptions, ...newCaptions]);
+    setCaptions((prevCaptions) => [...prevCaptions, ...Array(files.length).fill('')]);
   };
 
   const handleDragOver = (e) => {
@@ -98,6 +100,27 @@ const Gallery = () => {
     }));
   };
 
+  const openCaptionModal = (index) => {
+    setCaptionIndex(index);
+    setNewCaption(captions[index]);
+    setCaptionModal(true);
+  };
+
+  const closeCaptionModal = () => {
+    setCaptionModal(false);
+    setCaptionIndex(null);
+    setNewCaption('');
+  };
+
+  const saveCaption = () => {
+    setCaptions((prevCaptions) => {
+      const newCaptions = [...prevCaptions];
+      newCaptions[captionIndex] = newCaption;
+      return newCaptions;
+    });
+    closeCaptionModal();
+  };
+
   useEffect(() => {
     const dropArea = dropAreaRef.current;
 
@@ -165,11 +188,14 @@ const Gallery = () => {
               <button onClick={() => displayEditingOption(index)} className='edit-header'>
                 {visibility[index] ? 'Stop editing' : 'Edit image'}
               </button>
-              <div className="controls" style={{ display: visibility[index] ? 'flex' : 'none' }}>
-                <button onClick={() => rotateImage(index)}> Rotate <FaArrowRotateLeft /> </button>
-                <button onClick={() => applySaturate(index, 400)}> Add Filter <IoMdAdd /></button>
-                <button onClick={() => applySaturate(index, 100)}> Remove Filter <IoMdRemoveCircleOutline /> </button>
-                <button className='delete' onClick={() => deleteImage(index)}> Delete <MdDelete /> </button>
+              <button onClick={() => openCaptionModal(index)} className='edit-header ml'>
+                {captions[index] ? 'Edit Caption' : 'Add Caption'}
+              </button>
+              <div className="controls" style={{ display: visibility[index] ? 'block' : 'none' }}>
+                <button onClick={() => rotateImage(index)}>Rotate <FaArrowRotateLeft /> </button>
+                <button onClick={() => applySaturate(index, 400)}>Add Filter <IoMdAdd /></button>
+                <button onClick={() => applySaturate(index, 100)}>Remove Filter <IoMdRemoveCircleOutline /> </button>
+                <button className='delete' onClick={() => deleteImage(index)}>Delete <MdDelete /> </button>
               </div>
             </div>
           ))}
@@ -190,6 +216,20 @@ const Gallery = () => {
               <div className="caption">{captions[selectedImageIndex]}</div>
               <button className="prev-btn" onClick={showPreviousImage}>&#10094;</button>
               <button className="next-btn" onClick={showNextImage}>&#10095;</button>
+            </div>
+          </div>
+        )}
+
+        {captionModal && (
+          <div className="caption-modal">
+            <div className="caption-modal-content">
+              <h2>Image Caption</h2>
+              <textarea
+                value={newCaption}
+                onChange={(e) => setNewCaption(e.target.value)}
+              />
+              <button className='edit-header' onClick={saveCaption}>Save</button>
+              <button className='edit-header ml' onClick={closeCaptionModal}>Cancel</button>
             </div>
           </div>
         )}
